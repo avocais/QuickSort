@@ -1,0 +1,36 @@
+def quickSort(arr):
+    quickSortHelper(arr, 0, len(arr) - 1)
+    return arr
+
+def quickSortHelper(arr, low, high):
+    if low < high:
+        split_point = partition(arr, low, high)
+        quickSortHelper(arr, low, split_point - 1)
+        quickSortHelper(arr, split_point + 1, high)
+
+
+def partition(arr, low, high):
+    pivot_value = arr[low]
+    left_mark = low + 1
+    right_mark = high
+    done = False
+
+    while not done:
+        while left_mark <= right_mark and arr[left_mark] <= pivot_value:
+            left_mark += 1
+        while right_mark >= left_mark and arr[right_mark] >= pivot_value:
+            right_mark -= 1
+
+        if right_mark < left_mark:
+            done = True
+        else:
+            arr[left_mark], arr[right_mark] = arr[right_mark], arr[left_mark]
+
+    arr[low], arr[right_mark] = arr[right_mark], arr[low]
+    return right_mark
+
+arr = [3, 1, 5, 4, 2, 7, 6]
+print("Исходный массив: ", arr)
+result = quickSort(arr)
+print("Результат сортировки: ", result)
+
